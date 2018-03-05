@@ -60,7 +60,7 @@ public class FDInterfaceSqlController {
 			logger.info("start:{},stop:{},mode:{}",redisServiceImpl.get(username+"_start"),fengdaiSqlServiceImpl.getDbtime(),bizSqlOper.getModelist());
 			List<FengdaiSqlDao> BizSqlList = new ArrayList<>();
 			for(String var: bizSqlOper.getModelist()) {
-				BizSqlList.addAll((Collection<? extends FengdaiSqlDao>) fengdaiSqlServiceImpl.getDbSQLs((Date) redisServiceImpl.get(username+"_start"),stoptime,"%"+var+"%"));
+				BizSqlList.addAll( (Collection<? extends FengdaiSqlDao>) fengdaiSqlServiceImpl.getDbSQLs((Date) redisServiceImpl.get(username+"_start"),stoptime,"%"+var+"%"));
 			}
 			map.addAttribute("BusinessSQLs", BizSqlList);
 			return "display";
