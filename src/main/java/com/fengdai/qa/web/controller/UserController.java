@@ -121,6 +121,8 @@ public class UserController {
 				break;
 			case "login":
 				return "login";
+			case "getbusinessSQL":
+				return "businessSQL";
 			case "getcallbackInfo":
 			{
 				List<CallbackInfo> callbackinfolist= fengdaiCallbakInfoServiceImpl.getAllCallbakInfo(0, 10);

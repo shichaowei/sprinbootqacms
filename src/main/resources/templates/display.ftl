@@ -74,6 +74,31 @@
 			</div>
 		</#if>
 		
+		<#if BusinessSQLs?has_content>
+		<div class=table-responsive">
+			<table class="table table-striped table-condensed text-nowrap">
+			<thead>
+				<tr>
+					<th>业务SQL的id</th>
+					<th>业务SQL</th>
+					<th>业务反向SQL</th>
+					<th>入库时间</th>
+				</tr>
+			</thead>
+			<tbody>
+				<#list BusinessSQLs as x>
+						<tr>
+							<th ><textarea>${x.id}</textarea></th>
+							<th ><textarea>${x.sqlcontent}</textarea></th>
+							<th ><textarea>${x.reverseresult}</textarea></th>
+							<th >${x.addtime?datetime}</th>
+						</tr>
+				</#list>
+			</tbody>
+			</table>
+			</div>
+		</#if>
+		
 
 		
 		

@@ -5,12 +5,12 @@ import java.util.Date;
 public class FDSqlInfo {
 
 	private int id;
-	private String sql;
+	private String sqlcontent;
 	private String reverseresult;
 	private String businessJdbcUrl ;
 	private String businessJdbcName ;
 	private String businessJdbcPassword ;
-	private Date datetime;
+	private Date addtime;
 
 
 
@@ -44,17 +44,17 @@ public class FDSqlInfo {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getSql() {
-		return sql;
+	public String getSqlcontent() {
+		return sqlcontent;
 	}
-	public void setSql(String sql) {
-		this.sql = sql.replaceAll("\r|\n|\\s", " ").replaceAll("\\s+", " ");
+	public void setSqlcontent(String sql) {
+		this.sqlcontent = sql.replaceAll("\r|\n|\\s", " ").replaceAll("\\s+", " ");
 	}
-	public Date getDatetime() {
-		return datetime;
+	public Date getAddtime() {
+		return addtime;
 	}
-	public void setDatetime(Date datetime) {
-		this.datetime = datetime;
+	public void setAddtime(Date datetime) {
+		this.addtime = datetime;
 	}
 
 

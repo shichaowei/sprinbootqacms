@@ -1,5 +1,11 @@
 package com.fengdai.qa.web.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,8 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 
+import com.fengdai.qa.dao.admin.FengdaiSqlDao;
+import com.fengdai.qa.meta.BizSqlOper;
 import com.fengdai.qa.meta.FDSqlInfo;
 import com.fengdai.qa.service.FengdaiSqlService;
+import com.fengdai.qa.service.impl.RedisServiceImpl;
+import com.fengdai.qa.utils.GetUserUtil;
 import com.fengdai.qa.utils.LocalDateTimeUtils;
 @Controller
 public class FDInterfaceSqlController {
@@ -27,14 +37,48 @@ public class FDInterfaceSqlController {
 	@Autowired
 	public FengdaiSqlService fengdaiSqlServiceImpl;
 
+	@Autowired
+	public RedisServiceImpl redisServiceImpl;
+
+
+
+
+
+	@RequestMapping({ "api/captureSQL" })
+	public String getBusinessSQL(BizSqlOper bizSqlOper,HttpServletRequest request, HttpServletResponse response, ModelMap map) throws UnsupportedEncodingException {
+		String actiontype = bizSqlOper.getActiontype();
+		if("start".equals(actiontype)) {
+			Date start=fengdaiSqlServiceImpl.getDbtime();
+			String username=GetUserUtil.getUserName(request);
+			redisServiceImpl.set(username+"_start", start);
+			map.addAttribute("resultmsg", "已经开启了捕获，关闭捕获后会展示出当前时间段截获到的sql");
+			return "display";
+		}
+		if("stop".equals(actiontype)) {
+			Date stoptime= fengdaiSqlServiceImpl.getDbtime();
+			String username=GetUserUtil.getUserName(request);
+			logger.info("start:{},stop:{},mode:{}",redisServiceImpl.get(username+"_start"),fengdaiSqlServiceImpl.getDbtime(),bizSqlOper.getModelist());
+			List<FengdaiSqlDao> BizSqlList = new ArrayList<>();
+			for(String var: bizSqlOper.getModelist()) {
+				BizSqlList.addAll((Collection<? extends FengdaiSqlDao>) fengdaiSqlServiceImpl.getDbSQLs((Date) redisServiceImpl.get(username+"_start"),stoptime,"%"+var+"%"));
+			}
+			map.addAttribute("BusinessSQLs", BizSqlList);
+			return "display";
+		}
+		return "index";
+
+	}
+
+
+
 	@RequestMapping({ "sqlprocess" })
-	public void getIndex(FDSqlInfo fdSqlInfo,HttpServletRequest request, HttpServletResponse response, ModelMap map) {
+	public void captureSQL(FDSqlInfo fdSqlInfo,HttpServletRequest request, HttpServletResponse response, ModelMap map) {
 		org.springframework.jdbc.datasource.DriverManagerDataSource dataSource = new org.springframework.jdbc.datasource.DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		dataSource.setUrl(fdSqlInfo.getBusinessJdbcUrl());
 		dataSource.setUsername(fdSqlInfo.getBusinessJdbcName());
 		dataSource.setPassword(fdSqlInfo.getBusinessJdbcPassword());
-		String sql=fdSqlInfo.getSql();
+		String sql=fdSqlInfo.getSqlcontent();
 
 		String checkNumSQL="";
 		String reverseresult="";
