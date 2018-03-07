@@ -46,6 +46,7 @@ public class FDInterfaceSqlController {
 
 	@RequestMapping({ "api/captureSQL" })
 	public String getBusinessSQL(BizSqlOper bizSqlOper,HttpServletRequest request, HttpServletResponse response, ModelMap map) throws UnsupportedEncodingException {
+		LoggerFactory.getLogger(this.getClass()).info("sfddf");
 		String actiontype = bizSqlOper.getActiontype();
 		if("start".equals(actiontype)) {
 			Date start=fengdaiSqlServiceImpl.getDbtime();
@@ -57,7 +58,7 @@ public class FDInterfaceSqlController {
 		if("stop".equals(actiontype)) {
 			Date stoptime= fengdaiSqlServiceImpl.getDbtime();
 			String username=GetUserUtil.getUserName(request);
-			logger.info("start:{},stop:{},mode:{}",redisServiceImpl.get(username+"_start"),fengdaiSqlServiceImpl.getDbtime(),bizSqlOper.getModelist());
+			logger.debug("start:{},stop:{},mode:{}",redisServiceImpl.get(username+"_start"),fengdaiSqlServiceImpl.getDbtime(),bizSqlOper.getModelist());
 			List<FengdaiSqlDao> BizSqlList = new ArrayList<>();
 			for(String var: bizSqlOper.getModelist()) {
 				BizSqlList.addAll( (Collection<? extends FengdaiSqlDao>) fengdaiSqlServiceImpl.getDbSQLs((Date) redisServiceImpl.get(username+"_start"),stoptime,"%"+var+"%"));
@@ -68,6 +69,7 @@ public class FDInterfaceSqlController {
 		return "index";
 
 	}
+
 
 
 
@@ -107,7 +109,7 @@ public class FDInterfaceSqlController {
 			String deleteSQL="";
 		}
 		fdSqlInfo.setReverseresult(reverseresult);
-		logger.info("fdsqlinfo is {}",ToStringBuilder.reflectionToString(fdSqlInfo));
+		logger.debug("fdsqlinfo is {}",ToStringBuilder.reflectionToString(fdSqlInfo));
 		fengdaiSqlServiceImpl.addSql(fdSqlInfo);
 		System.out.println(LocalDateTimeUtils.formatTime(LocalDateTimeUtils.convertDateToLDT(fengdaiSqlServiceImpl.getDbtime()), "yyyy-MM-dd HH:mm:ss"));
 

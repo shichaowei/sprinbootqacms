@@ -16,6 +16,8 @@ public class ServerInfo {
 	public static String quartzIpadd="10.200.141.67";
 	public static String stopquartzCmd="/usr/local/dubbo-quartz-0.0.1.M1-SNAPSHOT/sbin/demo.sh stop";
 	public static String restartquartzCmd="/usr/local/restart-dubbo-quartz-auto.sh";
+	//源码位置
+	public static String downloadsourceDir="/root/fd-server/workspace/";
 	//nc相关 部署的时候默认nc监听服务器也是工程项目部署的服务器
 	public static String ncServerLogDir="/root/serverlog/";
 	public static String ncServerFundCmd="cd /root/serverlog;nc -l 1567 > fund.log";

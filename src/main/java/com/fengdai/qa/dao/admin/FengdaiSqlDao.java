@@ -24,8 +24,7 @@ public interface FengdaiSqlDao {
 	@Select("SELECT NOW()")
 	public Date getDbtime();
 
-	@Select( "SELECT * from fengdaisqls where addtime>=#{starttime} and addtime<=#{stoptime} and businessJdbcUrl like #{mode}"
-			)
+	@Select( "SELECT * from fengdaisqls where addtime>=#{starttime} and addtime<=#{stoptime} and businessJdbcUrl like #{mode}")
 	public List<FDSqlInfo> getDbSQLs(@Param("starttime") Date starttime,@Param("stoptime") Date  stoptime,@Param("mode") String mode);
 
 
