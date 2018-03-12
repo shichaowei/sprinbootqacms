@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -50,6 +51,7 @@ public class FDInterfaceSqlController {
 	@Autowired
 	public RedisServiceImpl redisServiceImpl;
 
+	private static HashMap<String, DruidDataSource> datasourceMap = new HashMap<>();
 
 
 
@@ -95,22 +97,27 @@ public class FDInterfaceSqlController {
 	 */
 	@RequestMapping({ "sqlprocess" })
 	public void captureSQL(FDSqlInfo fdSqlInfo,HttpServletRequest request, HttpServletResponse response, ModelMap map) {
+
+
 		if(fdSqlInfo.isHasResult()) {
 			ExecutorService executor = Executors.newSingleThreadExecutor();
 			FutureTask<String> future = new FutureTask<String>(new Callable<String>() {
 				@Override
 				public String call() throws  SQLException {
+					//限制连接数否则会出现大量timewait 会被搞死的
+					if(!datasourceMap.keySet().contains(fdSqlInfo.getBusinessJdbcUrl())) {
+						DruidDataSource dataSource = new DruidDataSource();
+						dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+						dataSource.setUsername(fdSqlInfo.getBusinessJdbcName());
+						dataSource.setPassword(fdSqlInfo.getBusinessJdbcPassword());
+						dataSource.setUrl(fdSqlInfo.getBusinessJdbcUrl());
+						dataSource.setInitialSize(1);
+						dataSource.setMinIdle(1);
+						dataSource.setMaxActive(5); // 启用监控统计功能
+						datasourceMap.put(fdSqlInfo.getBusinessJdbcUrl(), dataSource);
+					}
 
-
-					DruidDataSource dataSource = new DruidDataSource();
-					dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-					dataSource.setUsername(fdSqlInfo.getBusinessJdbcName());
-					dataSource.setPassword(fdSqlInfo.getBusinessJdbcPassword());
-					dataSource.setUrl(fdSqlInfo.getBusinessJdbcUrl());
-					dataSource.setInitialSize(5);
-					dataSource.setMinIdle(1);
-					dataSource.setMaxActive(10); // 启用监控统计功能
-					dataSource.setFilters("stat");// for mysql  dataSource.setPoolPreparedStatements(false);
+//					dataSource.setFilters("stat");// for mysql  dataSource.setPoolPreparedStatements(false);
 
 //					org.springframework.jdbc.datasource.DriverManagerDataSource dataSource = new org.springframework.jdbc.datasource.DriverManagerDataSource();
 //					dataSource.setDriverClassName("com.mysql.jdbc.Driver");
@@ -118,6 +125,7 @@ public class FDInterfaceSqlController {
 //					dataSource.setUsername(fdSqlInfo.getBusinessJdbcName());
 //					dataSource.setPassword(fdSqlInfo.getBusinessJdbcPassword());
 					String sql=fdSqlInfo.getSqlcontent();
+					org.springframework.jdbc.core.JdbcTemplate jdbcTemplate = new org.springframework.jdbc.core.JdbcTemplate(datasourceMap.get(fdSqlInfo.getBusinessJdbcUrl()));
 
 					String checkNumSQL="";
 					String reverseresult="";
@@ -132,7 +140,6 @@ public class FDInterfaceSqlController {
 						checkNumSQL="SELECT count(*) "+sql.substring(sql.toLowerCase().indexOf("from"));
 					}
 
-					org.springframework.jdbc.core.JdbcTemplate jdbcTemplate = new org.springframework.jdbc.core.JdbcTemplate(dataSource);
 					if (sql.trim().toLowerCase().matches("^select.*") || sql.trim().toLowerCase().matches("^update.*") ||sql.trim().toLowerCase().matches("^delete.*")) {
 						Long sqlsize = (Long) jdbcTemplate.queryForMap(checkNumSQL).get("count(*)");
 						String selectSQL=checkNumSQL.replace("count(*)", "*");
