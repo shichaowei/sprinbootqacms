@@ -5,15 +5,22 @@ import java.util.Date;
 public class FDSqlInfo {
 
 	private int id;
-	private String sql;
+	private String sqlcontent;
 	private String reverseresult;
 	private String businessJdbcUrl ;
 	private String businessJdbcName ;
 	private String businessJdbcPassword ;
-	private Date datetime;
+	private Date addtime;
+	private boolean hasResult;
 
 
 
+	public boolean isHasResult() {
+		return hasResult;
+	}
+	public void setHasResult(boolean hasResult) {
+		this.hasResult = hasResult;
+	}
 	public String getBusinessJdbcUrl() {
 		return businessJdbcUrl;
 	}
@@ -44,17 +51,23 @@ public class FDSqlInfo {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getSql() {
-		return sql;
+	public String getSqlcontent() {
+		return sqlcontent;
 	}
-	public void setSql(String sql) {
-		this.sql = sql.replaceAll("\r|\n|\\s", " ").replaceAll("\\s+", " ");
+	public void setSqlcontent(String sql) {
+		this.sqlcontent = sql.replaceAll("\r|\n|\\s", " ").replaceAll("\\s+", " ");
 	}
-	public Date getDatetime() {
-		return datetime;
+	public Date getAddtime() {
+		return addtime;
 	}
-	public void setDatetime(Date datetime) {
-		this.datetime = datetime;
+	public void setAddtime(Date datetime) {
+		this.addtime = datetime;
+	}
+	@Override
+	public String toString() {
+		return "FDSqlInfo [id=" + id + ", sqlcontent=" + sqlcontent + ", reverseresult=" + reverseresult
+				+ ", businessJdbcUrl=" + businessJdbcUrl + ", businessJdbcName=" + businessJdbcName
+				+ ", businessJdbcPassword=" + businessJdbcPassword + ", addtime=" + addtime + "]";
 	}
 
 

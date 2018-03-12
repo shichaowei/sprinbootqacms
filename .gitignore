@@ -1,9 +1,3 @@
-﻿<<<<<<< HEAD
-/target/
-/bin/
-.settings/
-src/main/webapp/css/新建文本文档.txt
-=======
 # Compiled class file
 *.class
 
@@ -35,5 +29,3 @@ target
 .classpath
 .settings
 .metadata
-README.md
->>>>>>> 2b34a239d779229aa6a08b619c33dbe496f1a334
