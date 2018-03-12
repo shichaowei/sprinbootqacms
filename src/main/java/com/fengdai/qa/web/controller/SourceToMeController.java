@@ -37,7 +37,6 @@ public class SourceToMeController {
 
 
 
-		System.out.println("jenkinstype:"+jenkinstype);
 		String mastertemp = "scp -r  /trdata/jobs/蜂贷3.0/jobs/fengdai_3.0_all/jobs/fengdai-common/workspace root@10.200.141.37:/root/fd-server";
 		String onlinetemp = "scp -r /root/.jenkins/workspace/new_fengdai_git/fengdai-common-test root@10.200.141.37:/root/fd-server";
 		if("master".equals(jenkinstype)) {
@@ -96,11 +95,11 @@ public class SourceToMeController {
 //			}
 	}
 
-	@RequestMapping({ "sourcetome" })
-	public String sourcetomePage(HttpServletRequest request, HttpServletResponse response, ModelMap map) {
-
-		return "sourcetome";
-	}
+//	@RequestMapping({ "sourcetome" })
+//	public String sourcetomePage(HttpServletRequest request, HttpServletResponse response, ModelMap map) {
+//
+//		return "sourcetome";
+//	}
 
 
 }

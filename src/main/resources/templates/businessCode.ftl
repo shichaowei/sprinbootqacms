@@ -2,8 +2,12 @@
 <html>
 <#include "/include/head.ftl">
 <body>
-
-<div class="col-lg-10">
+<div>
+	<#include "/include/menu.ftl">
+	<#include "/include/userinfo.ftl">
+</div>
+<div class="container col-lg-offset-1 col-lg-9 bianjie">
+<p>请修改common项目分支为所要测试的分支</p>
     		<form  role="form" action="api/sourcetome" method="post">
     			<div class="form-group">
     				<label for="name" class="control-label">transferServerIp:</label>

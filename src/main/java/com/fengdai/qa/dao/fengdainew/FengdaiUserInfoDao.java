@@ -58,6 +58,7 @@ public class FengdaiUserInfoDao {
 		jdbcTemplate.batchUpdate(sql.split(";"));
 
 
+
 		jdbcTemplate.update(String.format("DELETE FROM fengdai_thirdparty.apply_to_third WHERE apply_id in (select id FROM fengdai_riskcontrol.loan_apply WHERE login_name = '%s')", loginname));
 
 

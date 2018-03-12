@@ -11,9 +11,16 @@ public class FDSqlInfo {
 	private String businessJdbcName ;
 	private String businessJdbcPassword ;
 	private Date addtime;
+	private boolean hasResult;
 
 
 
+	public boolean isHasResult() {
+		return hasResult;
+	}
+	public void setHasResult(boolean hasResult) {
+		this.hasResult = hasResult;
+	}
 	public String getBusinessJdbcUrl() {
 		return businessJdbcUrl;
 	}
@@ -55,6 +62,12 @@ public class FDSqlInfo {
 	}
 	public void setAddtime(Date datetime) {
 		this.addtime = datetime;
+	}
+	@Override
+	public String toString() {
+		return "FDSqlInfo [id=" + id + ", sqlcontent=" + sqlcontent + ", reverseresult=" + reverseresult
+				+ ", businessJdbcUrl=" + businessJdbcUrl + ", businessJdbcName=" + businessJdbcName
+				+ ", businessJdbcPassword=" + businessJdbcPassword + ", addtime=" + addtime + "]";
 	}
 
 

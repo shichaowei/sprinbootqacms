@@ -259,7 +259,7 @@
 					</div>
 					<div class="form-group">
 						<label >指定的参数特征值：</label>	
-						<input id="fengdaiusername" class="form-control" type="text" name="param" placeholder="18667906998">
+						<input id="fengdaiusername" class="form-control" type="text" name="param" >
 					</div>
 					<button type="submit" class="btn btn-default">提交</button>
 				</form>
