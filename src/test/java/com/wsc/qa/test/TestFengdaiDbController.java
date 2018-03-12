@@ -19,8 +19,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import com.wsc.qa.service.FengdaiUserInfoService;
-import com.wsc.qa.web.controller.FengdaiDbController;
+import com.fengdai.qa.web.controller.FengdaiDbController;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
@@ -30,7 +30,7 @@ public class TestFengdaiDbController {
 	FengdaiDbController fengdaiDbController;
 
 	@Autowired
-	FengdaiUserInfoService fengdaiUserInfoServiceImpl;
+	FengdaiDbController fengdaiUserInfoServiceImpl;
 
 	MockMvc mockMvc;
 
