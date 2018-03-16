@@ -3,7 +3,7 @@
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
     <springProperty scope="context" name="springAppName" source="spring.application.name"/>
-    <springProperty scope="context" name="logPath" source="logging.path" defaultValue="/tmp"/>
+    <springProperty scope="context" name="logPath" source="logging.path" defaultValue="E:/logs"/>
     <property name="LOG_FILE" value="${logPath}/${springAppName}/%d{yyyy-MM-dd}.log"/>​
 
     <appender name="dailyRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -17,7 +17,7 @@
         </encoder>
     </appender>
 
-    <root level="info">
+    <root level="info"> 
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="dailyRollingFileAppender"/>
     </root>
