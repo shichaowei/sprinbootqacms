@@ -11,4 +11,6 @@ mongodb数据可视化
 常用服务器时间操作 
 获取业务代码
 agent插件数据接收与分析
-常用回调模拟等功能 
+常用回调模拟等功能
+前提条件：
+jenknis anyproxy rabbitmq redis nc 都需要安装好 

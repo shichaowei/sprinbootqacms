@@ -10,10 +10,26 @@ Target Server Type    : MYSQL
 Target Server Version : 50625
 File Encoding         : 65001
 
-Date: 2018-02-26 13:48:29
+Date: 2018-03-23 10:14:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for fdmethodinfo
+-- ----------------------------
+DROP TABLE IF EXISTS `fdmethodinfo`;
+CREATE TABLE `fdmethodinfo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `classname` varchar(255) DEFAULT NULL,
+  `methodname` varchar(255) DEFAULT NULL,
+  `methodparams` varchar(4096) DEFAULT NULL,
+  `methodbody` longtext,
+  `methodpath` varchar(2048) DEFAULT NULL,
+  `flag` varchar(255) DEFAULT NULL,
+  `addtime` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=974515 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for fengdaicallbackinfo
@@ -43,7 +59,20 @@ CREATE TABLE `fengdaimockinfo` (
   `opername` varchar(255) DEFAULT NULL,
   `delaytime` int(255) unsigned zerofill DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for fengdaimonitor
+-- ----------------------------
+DROP TABLE IF EXISTS `fengdaimonitor`;
+CREATE TABLE `fengdaimonitor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `classname` varchar(2048) DEFAULT NULL,
+  `methodname` varchar(2048) DEFAULT NULL,
+  `exectime` bigint(20) DEFAULT NULL,
+  `addtime` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for fengdaioperlog
@@ -56,7 +85,20 @@ CREATE TABLE `fengdaioperlog` (
   `opertime` datetime DEFAULT NULL,
   `status` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2370 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2416 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for fengdaisqls
+-- ----------------------------
+DROP TABLE IF EXISTS `fengdaisqls`;
+CREATE TABLE `fengdaisqls` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sqlcontent` varchar(4096) DEFAULT NULL,
+  `reverseResult` longtext,
+  `addtime` datetime DEFAULT NULL,
+  `businessJdbcUrl` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1189667 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for fengdaiuser
@@ -67,4 +109,4 @@ CREATE TABLE `fengdaiuser` (
   `userName` varchar(255) DEFAULT NULL,
   `userPassword` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
