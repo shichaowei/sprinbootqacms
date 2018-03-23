@@ -48,8 +48,12 @@ public class FDInterfaceSqlController {
 	@Autowired
 	public FengdaiSqlService fengdaiSqlServiceImpl;
 
+
+
 	@Autowired
 	public RedisServiceImpl redisServiceImpl;
+
+
 
 	private static HashMap<String, DruidDataSource> datasourceMap = new HashMap<>();
 
@@ -78,8 +82,10 @@ public class FDInterfaceSqlController {
 			return "display";
 		}
 		return "index";
-
 	}
+
+
+
 
 
 

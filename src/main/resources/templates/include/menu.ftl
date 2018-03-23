@@ -12,6 +12,7 @@
             <li><a href="/index?item=deleteUserInfo">修改fengdai用户信息</a></li>
             <li><a href="/index?item=getmongodbinfo">获取mongodb数据</a></li>
             <li><a href="/index?item=getbusinessSQL">获取蜂贷SQL数据</a></li>
+            <li><a href="/index?item=getbusinessMonitor">获取蜂贷监控数据</a></li>
             <li><a href="/index?item=getbusinessCode">获取蜂贷业务代码</a></li>
             <li><a href="/index?item=logout">登出</a></li>
         </ul>

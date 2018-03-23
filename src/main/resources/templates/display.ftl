@@ -89,8 +89,33 @@
 				<#list BusinessSQLs as x>
 						<tr>
 							<th ><textarea>${x.id}</textarea></th>
-							<th ><textarea>${x.sqlcontent}</textarea></th>
+							<th >${x.sqlcontent}</th>
 							<th ><textarea>${x.reverseresult}</textarea></th>
+							<th >${x.addtime?datetime}</th>
+						</tr>
+				</#list>
+			</tbody>
+			</table>
+			</div>
+		</#if>
+		
+		<#if BusinessMonitors?has_content>
+		<div class=table-responsive">
+			<table class="table table-striped table-condensed text-nowrap">
+			<thead>
+				<tr>
+					<th>类名</th>
+					<th>方法名</th>
+					<th>执行时间(ms)</th>
+					<th>入库时间</th>
+				</tr>
+			</thead>
+			<tbody>
+				<#list BusinessMonitors as x>
+						<tr>
+							<th >${x.classname}</th>
+							<th >${x.methodname}</th>
+							<th >${x.exectime}</th>
 							<th >${x.addtime?datetime}</th>
 						</tr>
 				</#list>
